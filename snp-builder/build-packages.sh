@@ -40,6 +40,10 @@ xargs -a $SCRIPT_DIR/dependencies.txt sudo apt install -y --no-install-recommend
 if [ -z "$AMDPATH" ]; then
 	AMDPATH=$BUILD_DIR/AMDSEV
     git clone https://github.com/AMDESE/AMDSEV.git --branch snp-latest --depth 1 $AMDPATH
+    pushd $AMDPATH
+    git fetch origin 111ad2cc8dfdbbcc687284ad0d24b7ed637fff2c
+    git checkout 111ad2cc8dfdbbcc687284ad0d24b7ed637fff2c
+    popd
 	if [[ $USE_STABLE_SNAPSHOT -eq 1 ]]; then
 		echo "Switching to stable snapshots for kernel, qemu and OVMF"
 		cp  "$SCRIPT_DIR/snpguard-stable-commits.txt" "$AMDPATH/stable-commits"
