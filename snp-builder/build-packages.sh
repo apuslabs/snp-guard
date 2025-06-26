@@ -50,5 +50,6 @@ pushd $AMDPATH 2>/dev/null
 
 echo "Move SNP dir to root"
 mv snp-release-*/ $BUILD_DIR/snp-release/
+find $BUILD_DIR/snp-release/linux/host $BUILD_DIR/snp-release/linux/guest -type f -name "*dbg*.deb" -delete
 
 popd
