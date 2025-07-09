@@ -1,3 +1,7 @@
+# APUS 
+
+**Note: This repository has been modified for GPU Trusted Execution Environment (TEE) support.**
+
 # SNPGuard
 
 This repository demonstrates an end-to-end secured setup for a SEV-SNP VM. To
@@ -112,7 +116,7 @@ From the top-level directory, execute:
 mkdir -p build && cd build
 
 # Download archive from our Github repository
-wget https://github.com/SNPGuard/snp-guard/releases/download/v0.1.2/snp-release.tar.gz
+wget https://github.com/apuslabs/snp-guard/releases/download/stable_6.9/snp-release.tar.gz
 
 # unpack archive
 tar -xf snp-release.tar.gz
@@ -121,42 +125,7 @@ tar -xf snp-release.tar.gz
 cd ..
 ```
 
-### Option 2: Build with Docker
 
-Here, we create a Docker image that contains all the required dependencies, and
-then we run a container in detached mode that builds the actual QEMU, OVMF, and
-kernel packages. The container will run in the background, allowing you to close
-the current shell and wait until the packages have been built. When the
-container has finished, we fetch the packages and extract the TAR archive.
-
-From the top-level directory, execute:
-```bash
-# go to the `snp-builder` folder
-cd snp-builder
-
-# Build docker image containing all dependencies
-make image
-
-# Run container in the background (it can take several hours to complete)
-# Without USE_STABLE_SNAPSHOTS=1, the script will use the AMD upstream repos
-make build USE_STABLE_SNAPSHOTS=1
-
-# Fetch archive from the container
-# note: you should wait until the container has exited successfully. Otherwise, this command will fail
-make get_files
-
-# (optional) remove container
-make clean
-
-# go to the build dir
-cd ../build
-
-# unpack archive
-tar -xf snp-release.tar.gz
-
-# go back to the top-level directory
-cd ..
-```
 
 ### Option 3: Build locally
 
@@ -167,8 +136,8 @@ hours.
 From the top-level directory, execute:
 ```bash
 # Run build script
-# Without -use-stable-snapshots, the script will use the AMD upstream repos
-./snp-builder/build-packages.sh -use-stable-snapshots
+
+./snp-builder/build-packages.sh 
 ```
 
 ## Prepare host
